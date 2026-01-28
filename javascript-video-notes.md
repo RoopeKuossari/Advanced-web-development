@@ -21,43 +21,43 @@
 11. Working with strings
    - Tells what are strings and how to use them.
 12. Demo: Working with strings
-   - Show how to use strings on VSCode.
+   - Shows how to use strings on VSCode.
 13. Using template literals to format strings
-   - ewqew
+   - Shows different styles to format strings.
 14. Demo: Using template literals to format strings
-   - ewqew
+   - Shows these styles on VSCode.
 15. Data types in JavaScript
-   - ewqew
+   - Teaches different data types that JS accepts.
 16. Demo: Data types in JavaScript
-   - ewqew
+   - Shows examples of data types on VSCode.
 17. Math in JavaScript
-   - ewqew
+   - Teaches different operators in JS and Math object functions.
 18. Demo: Math in JavaScript
-   - ewqew
+   - Shows these examples on VSCode.
 19. Converting strings to numbers
-   - ewqew
+   - Teaches how to convert different data types to other data types.
 20. Demo: Converting strings to numbers
-   - ewqew
+   - Shows different convertions on VSCode.
 21. Handling errors with try/catch/finally
-   - ewqew
+   - Teaches how to handle errors with try/catch/finally statements.
 22. Demo: Handling errors with try/catch/finally
-   - ewqew
+   - Shows how to handle errros on VSCode.
 23. Dates
-   - ewqew
+   - Teaches how dates work inside JS.
 24. Demo: Dates
-   - ewqew
+   - Shows how to work with dates in VSCode.
 25. Boolean logic with if statements
-   - ewqew
+   - Teaches how to use if statements using boolean logic.
 26. Demo: Boolean logic with if statements
-   - ewqew
+   - Shows how to use these in VSCode.
 27. Boolean logic with switch and other syntax
-   - ewqew
+   - Teaches how to use switch statements and other boolean statements using boolean logic.
 28. Demo: Boolean logic with switch and other syntax
-   - ewqew
+   - Shows these examples in VSCode.
 29. Creating arrays
-   - ewqew
+   - Teaches how to create arrays and what are arrays are for in JS.
 30. Demo: Creating arrays
-   - ewqew
+   - Shows how to create arrays using VSCode.
 31. Populating arrays
    - ewqew
 32. Demo: Populating arrays
