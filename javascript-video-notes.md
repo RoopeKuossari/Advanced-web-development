@@ -1,3 +1,7 @@
+# A1 task: Beginner’s Series to JavaScript
+[Video course](https://learn.microsoft.com/en-us/shows/beginners-series-to-javascript/)
+<br>
+<br>
 1. Beginning the Beginner's series
    - Introduction to series 
 2. What is JavaScript
@@ -59,44 +63,44 @@
 30. Demo: Creating arrays
    - Shows how to create arrays using VSCode.
 31. Populating arrays
-   - ewqew
+   - Teaches how to populate arrays in JS, input data and modify later the same array. And how to access the different elements on array by using printing statements.
 32. Demo: Populating arrays
-   - ewqew
+   - Shows how to populate arrays using VSCode.
 33. Array methods
-   - ewqew
+   - Teaches different array methods, such as push, pop, shift, unshift and concat.
 34. Demo: Array methods
-   - ewqew
+   - Shows these examples on VSCode.
 35. Loops
-   - ewqew
+   - Teaches what loops are and where to use them in JS.
 36. Demo: Loops
-   - ewqew
+   - Shows example of while, for anf for ... of loop in VSCode.
 37. Functions
-   - ewqew
+   - Teaches what functions are, how to use them and where to use them in JS.
 38. Demo: Functions
-   - ewqew
+   - Shows couple function examples in VSCode.
 39. Arrow and anonymous functions
-   - ewqew
+   - Teaches what arrow and anonymous functions are what they used for.
 40. Demo: Arrow and anonymous functions
-   - ewqew
+   - Shows example on these in VSCode.
 41. JavaScript Object Notation (JSON)
-   - ewqew
+   - Teaches what JSON is and what it is used for.
 42. Demo: JavaScript Object Notation (JSON)
-   - ewqew
+   - Shows how to use JSON in VSCode.
 43. Objects in JavaScript
-   - ewqew
+   - Teaches what objects are, how to create them and how to use them.
 44. Demo: Objects in JavaScript
-   - ewqew
+   - Shows example of creating object and how to access it in VSCode.
 45. Promises for long running operations
-   - ewqew
+   - Teaches how long running operations work using promises in JS.
 46. Demo: Promises for long running operations
-   - ewqew
+   - Shows how promises work in VSCode.
 47. Async/await for managing promises
-   - ewqew
+   - Teaches what async/await are and how to use them to manage promises.
 48. Demo: Async/await for managing promises
-   - ewqew
+   - Shows async/await example in VSCode.
 49. Package management
-   - ewqew
+   - Teaches what are packages (libraries, tools, shared components and your app), how to use and utilize them. Tells about NPM.
 50. Demo: Package management
-   - ewqew
+   - Shows how to use packages with npm in VSCode.
 51. Next steps
-   - ewqew
+   - Tells what to do next.
