@@ -1,10 +1,4 @@
-# Phase 6: CRUD Data Flow
-
-This document shows the data flow between frontend, backend, and database for the Resource management UI.
-
----
-
-## CREATE Resource
+# 1️⃣ CREATE – RResource (Sequence Diagram)
 
 ```mermaid
 sequenceDiagram
@@ -22,21 +16,29 @@ sequenceDiagram
         DB-->>BE: log inserted
         BE-->>FE: 201 Created\n{ok:true, data: insertedRow}
     end
+```
 
-## READ Resource
+# 2️⃣ READ — Resource (Sequence Diagram)
 
+```mermaid
 sequenceDiagram
     participant FE as Frontend (resources.js)
     participant BE as Backend (resources.routes.js)
     participant DB as PostgreSQL
 
     FE->>BE: GET /api/resources
-    BE->>DB: SELECT * FROM resources ORDER BY created_at DESC
-    DB-->>BE: rows[]
-    BE-->>FE: 200 OK\n{ok:true, data: rows[]}
+    alt Resources exist
+        BE->>DB: SELECT * FROM resources ORDER BY created_at DESC
+        DB-->>BE: resource rows[]
+        BE-->>FE: 200 OK\n{ok:true, data: resource rows[]}
+    else No resources
+        BE-->>FE: 200 OK\n{ok:true, data: []}
+    end
+```
 
-## UPDATE Resource
+# 3️⃣ UPDATE — Resource (Sequence Diagram)
 
+```mermaid
 sequenceDiagram
     participant FE as Frontend (resources.js)
     participant BE as Backend (resources.routes.js)
@@ -51,15 +53,17 @@ sequenceDiagram
             DB-->>BE: 0 rows
             BE-->>FE: 404 Not Found\n{ok:false, error:"Resource not found"}
         else Resource updated
-            DB-->>BE: updated row
+            DB-->>BE: updated resource row
             BE->>DB: INSERT INTO booking_log (..., message="Resource updated (ID ...)")
             DB-->>BE: log inserted
-            BE-->>FE: 200 OK\n{ok:true, data: updatedRow}
+            BE-->>FE: 200 OK\n{ok:true, data: updated resource row}
         end
     end
+```
 
-## DELETE Resource
+# 4️⃣ DELETE — Resource (Sequence Diagram)
 
+```mermaid
 sequenceDiagram
     participant FE as Frontend (resources.js)
     participant BE as Backend (resources.routes.js)
@@ -76,3 +80,4 @@ sequenceDiagram
         DB-->>BE: log inserted
         BE-->>FE: 204 No Content
     end
+```
