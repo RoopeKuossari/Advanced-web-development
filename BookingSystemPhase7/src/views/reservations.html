@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Reservations - Booking System</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: "#e10e49",
+                            light: "#ffffff",
+                            dark: "#1e1e1e",
+                            blue: "#263f6a",
+                            green: "#284e36",
+                            orange: "#e37222",
+                            rose: "#c24d52",
+                        }
+                    },
+                    boxShadow: {
+                        soft: "0 8px 40px rgba(0, 0, 0, 0.45)",
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-brand-light text-brand-dark overflow-y-scroll">
+    <header class="sticky top-0 z-40 bg-brand-dark text-white shadow-soft">
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="flex h-16 items-center justify-between">
+                <a href="/" class="flex items-center gap-3 flex-1">
+                    <img src="logo.svg" alt="Booking System" class="h-10 w-10">
+                    <div class="leading-tight">
+                        <span class="block text-sm font-semibold text-white">Booking System</span>
+                        <span class="block text-xs text-white/70">Secure resource booking</span>
+                    </div>
+                </a>
+                <nav class="flex items-center gap-3">
+                    <a href="/resources" class="rounded-xl border border-white/20 px-4 py-2 text-sm font-semibold hover:bg-white/10 w-40 text-center">Resources</a>
+                    <a href="/reservations" class="rounded-xl bg-white/10 border border-brand-primary px-4 py-2 text-sm font-semibold w-40 text-center">Reservations</a>
+                    <button onclick="logout()" class="rounded-xl bg-brand-primary px-4 py-2 text-sm font-semibold text-white w-40 text-center hover:bg-brand-primary/80">Sign out</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-6 flex-grow w-full py-10">
+        <div class="grid gap-8 lg:grid-cols-12">
+            
+            <section class="lg:col-span-5">
+                <div class="rounded-3xl bg-white p-8 shadow-soft border border-gray-100">
+                    <h2 id="form-title" class="text-2xl font-semibold mb-6">Create Reservation</h2>
+                    
+                    <form id="reservation-form" class="space-y-4">
+                        <input type="hidden" id="reservation-id">
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-black/70 mb-1">Resource ID</label>
+                            <input type="number" id="resourceId" name="resourceId" required 
+                                class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-black/70 mb-1">User ID</label>
+                            <input type="number" id="userId" name="userId" required 
+                                class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-black/70 mb-1">Start Time</label>
+                                <input type="datetime-local" id="startTime" name="startTime" required 
+                                    class="w-full rounded-xl border border-gray-300 px-4 py-2 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-black/70 mb-1">End Time</label>
+                                <input type="datetime-local" id="endTime" name="endTime" required 
+                                    class="w-full rounded-xl border border-gray-300 px-4 py-2 text-sm">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-black/70 mb-1">Note</label>
+                            <textarea id="note" name="note" rows="2"
+                                class="w-full rounded-xl border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none" placeholder="Purpose of booking..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-black/70 mb-1">Status</label>
+                            <select id="status" name="status" class="w-full rounded-xl border border-gray-300 px-4 py-2 outline-none">
+                                <option value="active">Active</option>
+                                <option value="pending">Pending</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+
+                        <div class="pt-4 flex flex-col gap-2">
+                            <button type="submit" id="submit-btn" 
+                                class="w-full rounded-2xl bg-brand-primary px-6 py-3 text-sm font-semibold text-white shadow-soft hover:bg-brand-dark transition-all">
+                                Save Reservation
+                            </button>
+                            <button type="button" id="cancel-edit" style="display:none;"
+                                class="w-full rounded-2xl border border-brand-blue px-6 py-3 text-sm font-semibold hover:bg-gray-100 transition-all">
+                                Cancel Editing
+                            </button>
+                        </div>
+                    </form>
+                    <div id="message-area" class="mt-4 text-sm font-medium"></div>
+                </div>
+            </section>
+
+            <section class="lg:col-span-7">
+                <div class="rounded-3xl bg-white p-8 shadow-soft border border-gray-100 h-full">
+                    <h2 class="text-2xl font-semibold mb-6">Existing Reservations</h2>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead class="text-left text-black/50 uppercase text-xs border-b">
+                                <tr>
+                                    <th class="py-3 px-2">Res.</th>
+                                    <th class="py-3 px-2">Time</th>
+                                    <th class="py-3 px-2">Status</th>
+                                    <th class="py-3 px-2 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="reservations-table-body" class="divide-y divide-gray-100">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-brand-dark text-white mt-auto">
+        <div class="mx-auto max-w-7xl px-6 py-10">
+            <div class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between border-t border-white/10 pt-8">
+                <div class="flex items-center gap-3">
+                    <img src="logo.svg" alt="Logo" class="h-8 w-8 opacity-90">
+                    <p class="text-xs text-white/50">© 2026 Booking System. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/reservations.js"></script>
+</body>
+</html>
