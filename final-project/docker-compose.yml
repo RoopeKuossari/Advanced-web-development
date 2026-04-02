@@ -1,0 +1,7 @@
+services:
+  koiranmaailma-app:
+    build: .
+    container_name: koiranmaailma_container
+    ports:
+      - "8080:80"
+    restart: always

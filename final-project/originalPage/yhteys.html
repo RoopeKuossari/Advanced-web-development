@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yhteydenotto - KoiranMaailma">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="icon" type="image/x-icon" href="./media/favicon/favicon.ico">
+    <title>Yhteydenotto</title>
+</head>
+<body>
+<header>
+    <h1>Ota yhteyttä</h1>
+    <!--Yläpalkki navigaatio sivujen pomppimiseen-->
+    <nav>
+         <ul>
+            <li><a href="index.html">Etusivu</a></li>
+            <li><a href="rodut.html">Rodut</a></li>
+            <li><a href="hoito.html">Hoito</a></li>
+            <li><a href="koulutus.html">Koulutus</a></li>
+            <li><a href="galleria.html">Galleria</a></li>
+            <li><a href="faktat.html">Faktat</a></li>
+            <li><a href="yhteys.html">Yhteydenotto</a></li>
+        </ul>
+    </nav>
+</header>  
+<main>
+    <section class="yhteys-lomake">
+        <h2>Lähetä meille viesti</h2>
+        <form action="#" method="POST">
+            
+            <fieldset>
+                <legend>Yhteystiedot</legend>
+                
+                <label for="nimi">Nimi:
+                    <input type="text" id="nimi" name="nimi" required>
+                </label>
+                
+                <label for="sahkoposti">Sähköposti:
+                    <input type="email" id="sahkoposti" name="sahkoposti" required>
+                </label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Viestin tiedot</legend>
+
+                <div class="checkbox-ryhma">
+                    <input type="checkbox" id="koiranomistaja" name="koiranomistaja">
+                    <label for="koiranomistaja">Omistan koiran</label>
+                    <label for="ika">Koiran ikä (vuosia):
+                        <input type="number" id="ika" name="ika" min="0" max="30">
+                    </label>
+                    <label for="pvm">Toivottu yhteydenottopäivä:
+                        <input type="date" id="pvm" name="pvm">
+                    </label>
+                </div>
+                
+                <label for="asia">Mitä asia koskee:</label>
+                <select id="asia" name="asia" required>
+                    <option value="" disabled selected>-- Valitse aihe --</option>
+                    <option value="rotu">Rotu</option>
+                    <option value="hoito">Hoito</option>
+                    <option value="koulutus">Koulutus</option>
+                    <option value="muu">Muu</option>
+                </select>
+                
+                <label for="viesti">Viesti:</label>
+                <textarea id="viesti" name="viesti" rows="6" required></textarea>
+                
+            </fieldset>
+
+            <button type="submit">Lähetä viesti</button>
+
+        </form>
+    </section>
+</main> 
+<!--Footer sivun alareunaan-->   
+<footer>
+    <p>Päivitetty: 2025</p>
+</footer> 
+</body>
+</html>
