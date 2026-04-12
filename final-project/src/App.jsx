@@ -7,7 +7,8 @@ import Hoito from './pages/Hoito';
 import Koulutus from './pages/Koulutus';
 import Galleria from './pages/Galleria';
 import Faktat from './pages/Faktat';
-import Yhteys from './pages/Yhteys'; // <--- Viimeinen import!
+import Yhteys from './pages/Yhteys';
+import FormPage from './pages/FormPage';
 
 function App() {
   return (
@@ -21,7 +22,8 @@ function App() {
           <Route path="/koulutus" element={<Koulutus />} />
           <Route path="/galleria" element={<Galleria />} />
           <Route path="/faktat" element={<Faktat />} />
-          <Route path="/yhteys" element={<Yhteys />} /> {/* <--- Valmis! */}
+          <Route path="/yhteys" element={<Yhteys />} />
+          <Route path="/form" element={<FormPage />} />
         </Routes>
       </main>
       <Footer />

@@ -13,6 +13,7 @@ function Header() {
           <li><Link to="/galleria">Galleria</Link></li>
           <li><Link to="/faktat">Faktat</Link></li>
           <li><Link to="/yhteys">Yhteydenotto</Link></li>
+          <li><Link to="/form">Form</Link></li>
         </ul>
       </nav>
     </header>
