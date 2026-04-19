@@ -27,19 +27,19 @@ function FormPage() {
     const newErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "Nimi on pakollinen";
+      newErrors.name = "Name is required";
     } else if (formData.name.length < 2) {
-      newErrors.name = "Nimen tulee olla vähintään 2 merkkiä";
+      newErrors.name = "Name must be at least 2 characters";
     }
 
     if (!formData.email) {
-      newErrors.email = "Sähköposti on pakollinen";
+      newErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Virheellinen sähköposti";
+      newErrors.email = "Invalid email format";
     }
 
     if (formData.age && (formData.age < 1 || formData.age > 120)) {
-      newErrors.age = "Iän tulee olla välillä 1–120";
+      newErrors.age = "Age must be between 1 and 120";
     }
 
     return newErrors;
@@ -60,7 +60,8 @@ function FormPage() {
     setResponse(null);
 
     try {
-      const res = await fetch("https://httpbin.org/post", {
+      // 1. Send data to the backend API
+      const res = await fetch("/api/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -68,10 +69,35 @@ function FormPage() {
         body: JSON.stringify(formData)
       });
 
+      if (!res.ok) {
+        throw new Error("Server error while saving data");
+      }
+
       const data = await res.json();
-      setResponse(data);
+
+      // 2. CRITICAL FIX: Capture a snapshot of the data BEFORE resetting the form
+      // This ensures FormResponse displays the correct values instead of empty strings
+      const submittedDataSnapshot = { ...formData };
+
+      setResponse({
+        url: "/api/submit",
+        json: submittedDataSnapshot, // Using the static snapshot
+        serverMessage: data.message,
+        status: "Success"
+      });
+
+      // 3. Reset the form fields for the next entry
+      setFormData({
+        name: '',
+        email: '',
+        age: '',
+        date: '',
+        subscribe: false
+      });
+
     } catch (error) {
-      setResponse({ error: "Request failed" });
+      console.error("Submission error:", error);
+      setResponse({ error: "Connection failed. Please ensure the server is running." });
     } finally {
       setLoading(false);
     }
@@ -79,42 +105,39 @@ function FormPage() {
 
   return (
     <section className="yhteys-lomake">
-      <h2>Lomake</h2>
-      <p>Täytä alla oleva lomake.</p>
+      <h2>Contact Form</h2>
+      <p>Please fill out the form below to get in touch.</p>
 
       <form onSubmit={handleSubmit}>
         <fieldset>
-          <legend>Käyttäjän tiedot</legend>
+          <legend>User Information</legend>
 
-          {/* NAME */}
-          <label htmlFor="name">Nimi:</label>
+          <label htmlFor="name">Name:</label>
           <input
             type="text"
             id="name"
             name="name"
-            placeholder="Anna nimi"
+            placeholder="Enter your name"
             value={formData.name}
             onChange={handleChange}
             required
             minLength={2}
           />
-          {errors.name && <p style={{ color: "red" }}>{errors.name}</p>}
+          {errors.name && <p style={{ color: "red", fontSize: "0.8rem" }}>{errors.name}</p>}
 
-          {/* EMAIL */}
-          <label htmlFor="email">Sähköposti:</label>
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="Anna sähköposti"
+            placeholder="Enter your email"
             value={formData.email}
             onChange={handleChange}
             required
           />
-          {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+          {errors.email && <p style={{ color: "red", fontSize: "0.8rem" }}>{errors.email}</p>}
 
-          {/* NUMBER */}
-          <label htmlFor="age">Ikä:</label>
+          <label htmlFor="age">Age:</label>
           <input
             type="number"
             id="age"
@@ -124,14 +147,13 @@ function FormPage() {
             value={formData.age}
             onChange={handleChange}
           />
-          {errors.age && <p style={{ color: "red" }}>{errors.age}</p>}
+          {errors.age && <p style={{ color: "red", fontSize: "0.8rem" }}>{errors.age}</p>}
         </fieldset>
 
         <fieldset>
-          <legend>Lisätiedot</legend>
+          <legend>Additional Details</legend>
 
-          {/* DATE */}
-          <label htmlFor="date">Päivämäärä:</label>
+          <label htmlFor="date">Date:</label>
           <input
             type="date"
             id="date"
@@ -140,7 +162,6 @@ function FormPage() {
             onChange={handleChange}
           />
 
-          {/* CHECKBOX */}
           <div className="checkbox-ryhma">
             <input
               type="checkbox"
@@ -149,24 +170,36 @@ function FormPage() {
               checked={formData.subscribe}
               onChange={handleChange}
             />
-            <label htmlFor="subscribe">Tilaa uutiskirje</label>
+            <label htmlFor="subscribe">Subscribe to our newsletter</label>
           </div>
         </fieldset>
 
         <button type="submit" disabled={loading}>
-          {loading ? "Lähetetään..." : "Lähetä"}
+          {loading ? "Processing..." : "Submit Form"}
         </button>
       </form>
 
-      {/* LOADING */}
-      {loading && <p>Lähetetään dataa...</p>}
+      {/* FEEDBACK SECTION */}
+      {loading && <p>Connecting to server...</p>}
 
-      {/* RESPONSE (CLEAN COMPONENT) */}
-      {response && (
+      {response && !response.error && (
         <FormResponse
-          formData={formData}
+          formData={response.json} // Passing the captured snapshot
           response={response}
         />
+      )}
+
+      {response && response.error && (
+        <div style={{ 
+          marginTop: "20px", 
+          padding: "15px", 
+          backgroundColor: "#ffe6e6", 
+          color: "#cc0000", 
+          borderRadius: "5px",
+          border: "1px solid #cc0000" 
+        }}>
+          <strong>Error:</strong> {response.error}
+        </div>
       )}
     </section>
   );

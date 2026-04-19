@@ -14,6 +14,8 @@ function Header() {
           <li><Link to="/faktat">Faktat</Link></li>
           <li><Link to="/yhteys">Yhteydenotto</Link></li>
           <li><Link to="/form">Form</Link></li>
+          <li><Link to="/admin">Admin</Link></li>
+          <li><Link to="/submissions">Submissions</Link></li>
         </ul>
       </nav>
     </header>

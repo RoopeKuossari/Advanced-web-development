@@ -9,6 +9,8 @@ import Galleria from './pages/Galleria';
 import Faktat from './pages/Faktat';
 import Yhteys from './pages/Yhteys';
 import FormPage from './pages/FormPage';
+import Admin from './pages/Admin';
+import SubmissionsPage from './pages/SubmissionsPage';
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/faktat" element={<Faktat />} />
           <Route path="/yhteys" element={<Yhteys />} />
           <Route path="/form" element={<FormPage />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/submissions" element={<SubmissionsPage />} />
         </Routes>
       </main>
       <Footer />

@@ -3,5 +3,7 @@ services:
     build: .
     container_name: koiranmaailma_container
     ports:
-      - "8080:80"
+      - "8080:5000"  # Map your browser's 8080 to the Backend's 5000
+    volumes:
+      - ./db:/app/db # Keep your database persistent
     restart: always

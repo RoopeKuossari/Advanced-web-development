@@ -1,21 +1,22 @@
-# Vaihe 1: Rakentaminen (Build stage)
-FROM node:20-slim AS build
+# Step 1: Build Frontend
+FROM node:20-slim AS build-stage
+WORKDIR /app
+COPY . .
+# Install and build frontend
+RUN cd frontend && npm install && npm run build
+
+# Step 2: Final Image
+FROM node:20-slim
 WORKDIR /app
 
-# Kopioidaan pakettitiedostot ja asennetaan riippuvuudet
-COPY package*.json ./
-RUN npm install
+# Copy built frontend to a folder the backend can serve
+COPY --from=build-stage /app/frontend/dist ./public_html
+# Copy backend files
+COPY backend ./backend
+COPY db ./db
 
-# Kopioidaan koodit ja rakennetaan projekti
-COPY . .
-RUN npm run build
+# Install Backend dependencies
+RUN cd backend && npm install
 
-# Vaihe 2: Tarjoileminen (Production stage)
-FROM nginx:stable-alpine
-# Kopioidaan rakennettu sisältö Nginxin oletuskansioon
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Avataan portti 80
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 5000
+CMD ["node", "backend/server.js"]
